@@ -1,9 +1,14 @@
 <section data-ng-controller="StreamTestController">
- <script type="text/javascript">
-	alert('test');
-	console.log('test')
- </script>
 
+  <div id="sendMessageArea">
+    <div id="iam2">Obtaining ID...</div>
+    <textarea id="sendMessageText"></textarea>
+    <div id="otherClients2"></div>
+  </div>
+  <div id="receiveMessageArea">
+    Received Messages:
+    <div id="conversation"></div>
+  </div>
 	<div id="demoContainer">
     <div id="connectControls">
       <div id="iam">Not yet connected...</div>
