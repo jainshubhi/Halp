@@ -11,8 +11,7 @@ angular.module('core').controller('StreamTestController', ['$scope',
 				script.onload = function() {
 					loadCount--;
 					if(loadCount===0) {
-						connect1();
-						connect2();
+						connect();
 					}
 				}
         document.body.appendChild(script);
@@ -20,8 +19,9 @@ angular.module('core').controller('StreamTestController', ['$scope',
 
 		loadScript('/modules/core/js/socket.io.js');
 		loadScript('/modules/core/js/easyrtc/easyrtc.js');
-		loadScript('/modules/core/js/demo_instant_messaging.js');
-		loadScript('/modules/core/js/demo_audio_video_simple.js');
+		//loadScript('/modules/core/js/demo_instant_messaging.js');
+		//loadScript('/modules/core/js/demo_audio_video_simple.js');
+		loadScript('/modules/core/js/streamtest.js');
 
 		// Stream test controller logic
 		// ...
