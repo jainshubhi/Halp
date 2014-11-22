@@ -45,7 +45,7 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		unique: 'testing error message'
+		unique: 'testing error', 
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
@@ -75,9 +75,6 @@ var UserSchema = new Schema({
 			enum: ['user', 'admin']
 		}],
 		default: ['user']
-	},
-	meta: {
-
 	},
 	updated: {
 		type: Date
