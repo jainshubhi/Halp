@@ -1,3 +1,22 @@
 <section data-ng-controller="StreamTestController">
-	This is the Stream test
+ <script type="text/javascript">
+	alert('test');
+	console.log('test')
+ </script>
+
+	<div id="demoContainer">
+    <div id="connectControls">
+      <div id="iam">Not yet connected...</div>
+      <br />
+      <strong>Connected users:</strong>
+      <div id="otherClients"></div>
+    </div>
+    <div id="videos">
+      <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+      <div style="position:relative;float:left;">
+      <video autoplay="autoplay" id="callerVideo"></video>
+      </div>
+      <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
+    </div>
+  </div>
 </section>
