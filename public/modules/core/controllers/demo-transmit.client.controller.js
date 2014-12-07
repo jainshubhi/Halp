@@ -40,9 +40,9 @@ angular.module('core').controller('DemoTransmitController', ['$scope',
 						console.log('saw room ' + roomName);
 					}
 					if(roomList.length > 0) {
-						easyrtc.joinRoom(rootList[0], null, success, failure);
+						easyrtc.joinRoom(roomList[0], null, success, failure);
 					}
-					for(var roomName in roomList){
+					for(roomName in roomList){
 						console.log('saw room ' + roomName);
 					}
 				},
