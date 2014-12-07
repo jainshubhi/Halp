@@ -14,7 +14,7 @@ angular.module('core').controller('DemoTransmitController', ['$scope',
 					//appInit();
 					start();
 				}
-			}
+			};
 			document.body.appendChild(script);
 		};
 
@@ -37,17 +37,17 @@ angular.module('core').controller('DemoTransmitController', ['$scope',
 		 	easyrtc.getRoomList(
 				function(roomList) {
 					for(var roomName in roomList){
-						console.log("saw room " + roomName);
+						console.log('saw room ' + roomName);
 					}
 					if(roomList.length > 0) {
 						easyrtc.joinRoom(rootList[0], null, success, failure);
 					}
 					for(var roomName in roomList){
-						console.log("saw room " + roomName);
+						console.log('saw room ' + roomName);
 					}
 				},
 				function(errorCode, errorText){
-					console.log("ERROR" + errorText);
+					console.log('ERROR' + errorText);
 				}
 			);
 			/*easyrtc.setOnCall( function(easyrtcid, slot) {
