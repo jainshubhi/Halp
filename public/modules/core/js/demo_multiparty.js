@@ -1,4 +1,4 @@
-
+'use strict';
 
 var activeBox = -1;  // nothing selected
 var aspectRatio = 4/3;  // standard definition video aspect ratio
@@ -9,7 +9,7 @@ var layout;
 
 
 function getIdOfBox(boxNum) {
-    return "box" + boxNum;
+    return 'box' + boxNum;
 }
 
 
@@ -28,13 +28,13 @@ function reshapeTextEntryBox(parentw, parenth) {
         top:parenth/4,
         width:parentw/2,
         height: parenth/4
-    }
+    };
 }
 
 function reshapeTextEntryField(parentw, parenth) {
     return {
         width:parentw -40
-    }
+    };
 }
 
 var margin = 20;
@@ -129,7 +129,7 @@ function reshape1of2(parentw, parenth) {
             top:  (parenth -sharedVideoHeight)/2,
             width: sharedVideoWidth,
             height: sharedVideoHeight
-        }
+        };
     }
 }
 
@@ -150,7 +150,7 @@ function reshape2of2(parentw, parenth){
             top:  (parenth -sharedVideoHeight)/2,
             width: sharedVideoWidth,
             height: sharedVideoHeight
-        }
+        };
     }
 }
 
@@ -169,7 +169,7 @@ function reshape1of3(parentw, parenth) {
             top:  (parenth -sharedVideoHeight*2)/3,
             width: sharedVideoWidth,
             height: sharedVideoHeight
-        }
+        };
     }
 }
 
@@ -188,7 +188,7 @@ function reshape2of3(parentw, parenth){
             top:  (parenth -sharedVideoHeight*2)/3,
             width: sharedVideoWidth,
             height: sharedVideoHeight
-        }
+        };
     }
 }
 
@@ -207,7 +207,7 @@ function reshape3of3(parentw, parenth) {
             top:  (parenth -sharedVideoHeight*2)/3*2+ sharedVideoHeight,
             width: sharedVideoWidth,
             height: sharedVideoHeight
-        }
+        };
     }
 }
 
@@ -218,7 +218,7 @@ function reshape1of4(parentw, parenth) {
         top: (parenth - sharedVideoHeight*2)/3,
         width: sharedVideoWidth,
         height: sharedVideoHeight
-    }
+    };
 }
 
 function reshape2of4(parentw, parenth) {
@@ -227,7 +227,7 @@ function reshape2of4(parentw, parenth) {
         top: (parenth - sharedVideoHeight*2)/3,
         width: sharedVideoWidth,
         height: sharedVideoHeight
-    }
+    };
 }
 function reshape3of4(parentw, parenth) {
     return {
@@ -235,7 +235,7 @@ function reshape3of4(parentw, parenth) {
         top: (parenth - sharedVideoHeight*2)/3*2 + sharedVideoHeight,
         width: sharedVideoWidth,
         height: sharedVideoHeight
-    }
+    };
 }
 
 function reshape4of4(parentw, parenth) {
@@ -244,7 +244,7 @@ function reshape4of4(parentw, parenth) {
         top: (parenth - sharedVideoHeight*2)/3*2 + sharedVideoHeight,
         width: sharedVideoWidth,
         height: sharedVideoHeight
-    }
+    };
 }
 
 var boxUsed = [true, false, false, false];
@@ -295,7 +295,7 @@ var reshapeThumbs = [
             return setThumbSize(0.20, 0.01, 0.01, parentw, parenth);
         }
         else {
-            setSharedVideoSize(parentw, parenth)
+            setSharedVideoSize(parentw, parenth);
             switch(connectCount) {
                 case 0:return reshapeToFullSize(parentw, parenth);
                 case 1:return reshape1of2(parentw, parenth);
@@ -394,24 +394,24 @@ function reshapeTextEntryButton(parentw, parenth) {
 
 function handleWindowResize() {
     var fullpage = document.getElementById('fullpage');
-    fullpage.style.width = window.innerWidth + "px";
-    fullpage.style.height = window.innerHeight + "px";
+    fullpage.style.width = window.innerWidth + 'px';
+    fullpage.style.height = window.innerHeight + 'px';
     connectCount = easyrtc.getConnectionCount();
 
     function applyReshape(obj,  parentw, parenth) {
         var myReshape = obj.reshapeMe(parentw, parenth);
 
         if(typeof myReshape.left !== 'undefined' ) {
-            obj.style.left = Math.round(myReshape.left) + "px";
+            obj.style.left = Math.round(myReshape.left) + 'px';
         }
         if(typeof myReshape.top !== 'undefined' ) {
-            obj.style.top = Math.round(myReshape.top) + "px";
+            obj.style.top = Math.round(myReshape.top) + 'px';
         }
         if(typeof myReshape.width !== 'undefined' ) {
-            obj.style.width = Math.round(myReshape.width) + "px";
+            obj.style.width = Math.round(myReshape.width) + 'px';
         }
         if(typeof myReshape.height !== 'undefined' ) {
-            obj.style.height = Math.round(myReshape.height) + "px";
+            obj.style.height = Math.round(myReshape.height) + 'px';
         }
 
         var n = obj.childNodes.length;
@@ -430,10 +430,10 @@ function handleWindowResize() {
 function setReshaper(elementId, reshapeFn) {
     var element = document.getElementById(elementId);
     if( !element) {
-        alert("Attempt to apply to reshapeFn to non-existent element " + elementId);
+        alert('Attempt to apply to reshapeFn to non-existent element ' + elementId);
     }
     if( !reshapeFn) {
-        alert("Attempt to apply misnamed reshapeFn to element " + elementId);
+        alert('Attempt to apply misnamed reshapeFn to element ' + elementId);
     }
     element.reshapeMe = reshapeFn;
 }
@@ -444,8 +444,8 @@ function collapseToThumbHelper() {
         var id = getIdOfBox(activeBox);
         document.getElementById(id).style.zIndex = 2;
         setReshaper(id, reshapeThumbs[activeBox]);
-        document.getElementById('muteButton').style.display = "none";
-        document.getElementById('killButton').style.display = "none";
+        document.getElementById('muteButton').style.display = 'none';
+        document.getElementById('killButton').style.display = 'none';
         activeBox = -1;
     }
 }
@@ -461,17 +461,17 @@ function collapseToThumb() {
 function updateMuteImage(toggle) {
     var muteButton = document.getElementById('muteButton');
     if( activeBox > 0) { // no kill button for self video
-        muteButton.style.display = "block";
+        muteButton.style.display = 'block';
         var videoObject = document.getElementById( getIdOfBox(activeBox));
         var isMuted = videoObject.muted?true:false;
         if( toggle) {
             isMuted = !isMuted;
             videoObject.muted = isMuted;
         }
-        muteButton.src = isMuted?"images/button_unmute.png":"images/button_mute.png";
+        muteButton.src = isMuted?'images/button_unmute.png':'images/button_mute.png';
     }
     else {
-        muteButton.style.display = "none";
+        muteButton.style.display = 'none';
     }
 }
 
@@ -487,9 +487,9 @@ function expandThumb(whichBox) {
         setReshaper(id, reshapeToFullSize);
         document.getElementById(id).style.zIndex = 1;
         if( whichBox > 0) {
-            document.getElementById('muteButton').style.display = "block";
+            document.getElementById('muteButton').style.display = 'block';
             updateMuteImage();
-            document.getElementById('killButton').style.display = "block";
+            document.getElementById('killButton').style.display = 'block';
         }
     }
     updateMuteImage(false);
@@ -564,20 +564,20 @@ function loginSuccess() {
 
 
 function cancelText() {
-    document.getElementById('textentryBox').style.display = "none";
-    document.getElementById('textEntryButton').style.display = "block";
+    document.getElementById('textentryBox').style.display = 'none';
+    document.getElementById('textEntryButton').style.display = 'block';
 }
 
 
 function sendText(e) {
-    document.getElementById('textentryBox').style.display = "none";
-    document.getElementById('textEntryButton').style.display = "block";
+    document.getElementById('textentryBox').style.display = 'none';
+    document.getElementById('textEntryButton').style.display = 'block';
     var stringToSend = document.getElementById('textentryField').value;
-    if( stringToSend && stringToSend != "") {
+    if( stringToSend && stringToSend != '') {
         for(var i = 0; i < maxCALLERS; i++ ) {
             var easyrtcid = easyrtc.getIthCaller(i);
-            if( easyrtcid && easyrtcid != "") {
-                easyrtc.sendPeerMessage(easyrtcid, "im",  stringToSend);
+            if( easyrtcid && easyrtcid != '') {
+                easyrtc.sendPeerMessage(easyrtcid, 'im',  stringToSend);
             }
         }
     }
@@ -586,9 +586,9 @@ function sendText(e) {
 
 
 function showTextEntry() {
-    document.getElementById('textentryField').value = "";
-    document.getElementById('textentryBox').style.display = "block";
-    document.getElementById('textEntryButton').style.display = "none";
+    document.getElementById('textentryField').value = '';
+    document.getElementById('textentryBox').style.display = 'block';
+    document.getElementById('textEntryButton').style.display = 'none';
     document.getElementById('textentryField').focus();
 }
 
@@ -601,22 +601,22 @@ function showMessage(startX, startY, content) {
     var centerEndY = .2*startY + .8*fullH/2;
 
 
-    var cloudObject = document.createElement("img");
-    cloudObject.src = "images/cloud.png";
-    cloudObject.style.width = "1px";
-    cloudObject.style.height = "1px";
-    cloudObject.style.left = startX + "px";
-    cloudObject.style.top = startY + "px";
+    var cloudObject = document.createElement('img');
+    cloudObject.src = 'images/cloud.png';
+    cloudObject.style.width = '1px';
+    cloudObject.style.height = '1px';
+    cloudObject.style.left = startX + 'px';
+    cloudObject.style.top = startY + 'px';
     fullPage.appendChild(cloudObject);
 
     cloudObject.onload = function() {
-        cloudObject.style.left = startX + "px";
-        cloudObject.style.top = startY + "px";
-        cloudObject.style.width = "4px";
-        cloudObject.style.height = "4px";
+        cloudObject.style.left = startX + 'px';
+        cloudObject.style.top = startY + 'px';
+        cloudObject.style.width = '4px';
+        cloudObject.style.height = '4px';
         cloudObject.style.opacity = 0.7;
         cloudObject.style.zIndex = 5;
-        cloudObject.className = "transit boxCommon";
+        cloudObject.className = 'transit boxCommon';
         var textObject;
         function removeCloud() {
             if( textObject) {
@@ -625,19 +625,19 @@ function showMessage(startX, startY, content) {
             }
         }
         setTimeout(function() {
-            cloudObject.style.left = centerEndX - fullW/4 + "px";
-            cloudObject.style.top = centerEndY - fullH/4+ "px";
-            cloudObject.style.width = (fullW/2) + "px";
-            cloudObject.style.height = (fullH/2) + "px";
+            cloudObject.style.left = centerEndX - fullW/4 + 'px';
+            cloudObject.style.top = centerEndY - fullH/4+ 'px';
+            cloudObject.style.width = (fullW/2) + 'px';
+            cloudObject.style.height = (fullH/2) + 'px';
         }, 10);
         setTimeout(function() {
             textObject = document.createElement('div');
-            textObject.className = "boxCommon";
-            textObject.style.left = Math.floor(centerEndX-fullW/8) + "px";
-            textObject.style.top = Math.floor(centerEndY) + "px";
-            textObject.style.fontSize = "36pt";
-            textObject.style.width = (fullW*.4) + "px";
-            textObject.style.height = (fullH*.4) + "px";
+            textObject.className = 'boxCommon';
+            textObject.style.left = Math.floor(centerEndX-fullW/8) + 'px';
+            textObject.style.top = Math.floor(centerEndY) + 'px';
+            textObject.style.fontSize = '36pt';
+            textObject.style.width = (fullW*.4) + 'px';
+            textObject.style.height = (fullH*.4) + 'px';
             textObject.style.zIndex = 6;
             textObject.appendChild( document.createTextNode(content));
             fullPage.appendChild(textObject);
@@ -645,10 +645,10 @@ function showMessage(startX, startY, content) {
             cloudObject.onclick = removeCloud;
         }, 1000);
         setTimeout(function() {
-            cloudObject.style.left = startX + "px";
-            cloudObject.style.top = startY + "px";
-            cloudObject.style.width = "4px";
-            cloudObject.style.height = "4px";
+            cloudObject.style.left = startX + 'px';
+            cloudObject.style.top = startY + 'px';
+            cloudObject.style.width = '4px';
+            cloudObject.style.height = '4px';
             fullPage.removeChild(textObject);
         }, 9000);
         setTimeout(function(){
@@ -690,19 +690,19 @@ function appInit() {
 
 
     easyrtc.setRoomOccupantListener(callEverybodyElse);
-    easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
+    easyrtc.easyApp('easyrtc.multiparty', 'box0', ['box1', 'box2', 'box3'], loginSuccess);
     easyrtc.setPeerListener(messageListener);
     easyrtc.setDisconnectListener( function() {
-        easyrtc.showError("LOST-CONNECTION", "Lost connection to signaling server");
+        easyrtc.showError('LOST-CONNECTION', 'Lost connection to signaling server');
     });
     easyrtc.setOnCall( function(easyrtcid, slot) {
-        console.log("getConnection count="  + easyrtc.getConnectionCount() );
+        console.log('getConnection count='  + easyrtc.getConnectionCount() );
         boxUsed[slot+1] = true;
         if(activeBox == 0 ) { // first connection
             collapseToThumb();
             document.getElementById('textEntryButton').style.display = 'block';
         }
-        document.getElementById(getIdOfBox(slot+1)).style.visibility = "visible";
+        document.getElementById(getIdOfBox(slot+1)).style.visibility = 'visible';
         handleWindowResize();
     });
 
@@ -713,7 +713,7 @@ function appInit() {
             collapseToThumb();
         }
         setTimeout(function() {
-            document.getElementById(getIdOfBox(slot+1)).style.visibility = "hidden";
+            document.getElementById(getIdOfBox(slot+1)).style.visibility = 'hidden';
 
             if( easyrtc.getConnectionCount() == 0 ) { // no more connections
                 expandThumb(0);
