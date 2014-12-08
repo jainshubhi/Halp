@@ -51,7 +51,9 @@ angular.module('core').controller('DemoStreamController', ['$scope',
 
 		function roomSuccess(e) {
 			console.log('Connected to Room: ' + e);
-			console.log(easyrtc.getRoomFields('room123'));
+			console.log(easyrtc.getRoomFields('default'));
+			console.log(easyrtc.getRoomOccupantsAsMap('default'));
+			console.log('Here');
 		}
 
 		function roomFailure(e, f) {
