@@ -1,0 +1,26 @@
+<section data-ng-controller="RoomTestController">
+    <div style="margin-top:50px">
+        M
+    </div>
+  <div id="sendMessageArea">
+    <textarea id="sendMessageText"></textarea>
+    <div id="otherClients2"></div>
+  </div>
+  <div id="receiveMessageArea">
+    Received Messages:
+    <div id="conversation"></div>
+  </div>
+    <div id="iam">Not yet connected...</div>
+  <div id="connectControls">
+    <br />
+    <strong>Connected users:</strong>
+    <div id="otherClients"></div>
+  </div>
+  <div id="videos">
+    <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+    <div style="position:relative;float:left;">
+    <video autoplay="autoplay" id="callerVideo"></video>
+    </div>
+    <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
+  </div>
+</section>
