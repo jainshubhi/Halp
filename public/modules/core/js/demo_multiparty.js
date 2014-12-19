@@ -1,7 +1,5 @@
 'use strict';
 
-var easyrtc = require('/modules/core/js/easyrtc/easyrtc.js');
-
 var activeBox = -1;  // nothing selected
 var aspectRatio = 4/3;  // standard definition video aspect ratio
 var maxCALLERS = 3;
