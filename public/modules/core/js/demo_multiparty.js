@@ -331,9 +331,7 @@ var reshapeThumbs = [
                     if( !boxUsed[1]) {
                         return reshape2of3(parentw, parenth);
                     }
-                    else {
-                        return reshape3of3(parentw, parenth);
-                    }
+                    return reshape3of3(parentw, parenth);
                 case 3:
                     return reshape3of4(parentw, parenth);
             }
@@ -361,10 +359,10 @@ function killButtonReshaper(parentw, parenth) {
     var imagew = 128;
     var imageh = 128;
     if( parentw < parenth) {
-        return setThumbSizeButton(0.1, -.51, -0.01, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.1, -0.51, -0.01, parentw, parenth, imagew, imageh);
     }
     else {
-        return setThumbSizeButton(0.1, -.01, -.51, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.1, -0.01, -0.51, parentw, parenth, imagew, imageh);
     }
 }
 
@@ -373,10 +371,10 @@ function muteButtonReshaper(parentw, parenth) {
     var imagew = 32;
     var imageh = 32;
     if( parentw < parenth) {
-        return setThumbSizeButton(0.10, -.51, 0.01, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.10, -0.51, 0.01, parentw, parenth, imagew, imageh);
     }
     else {
-        return setThumbSizeButton(0.10, 0.01, -.51, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.10, 0.01, -0.51, parentw, parenth, imagew, imageh);
     }
 }
 
@@ -384,10 +382,10 @@ function reshapeTextEntryButton(parentw, parenth) {
     var imagew = 32;
     var imageh = 32;
     if( parentw < parenth) {
-        return setThumbSizeButton(0.10, .51, 0.01, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.10, 0.51, 0.01, parentw, parenth, imagew, imageh);
     }
     else {
-        return setThumbSizeButton(0.10, 0.01, .51, parentw, parenth, imagew, imageh);
+        return setThumbSizeButton(0.10, 0.01, 0.51, parentw, parenth, imagew, imageh);
     }
 }
 
@@ -573,10 +571,10 @@ function sendText(e) {
     document.getElementById('textentryBox').style.display = 'none';
     document.getElementById('textEntryButton').style.display = 'block';
     var stringToSend = document.getElementById('textentryField').value;
-    if( stringToSend && stringToSend != '') {
+    if( stringToSend && stringToSend !== '') {
         for(var i = 0; i < maxCALLERS; i++ ) {
             var easyrtcid = easyrtc.getIthCaller(i);
-            if( easyrtcid && easyrtcid != '') {
+            if( easyrtcid && easyrtcid !== '') {
                 easyrtc.sendPeerMessage(easyrtcid, 'im',  stringToSend);
             }
         }
@@ -597,8 +595,8 @@ function showMessage(startX, startY, content) {
     var fullPage = document.getElementById('fullpage');
     var fullW = parseInt(fullPage.offsetWidth);
     var fullH = parseInt(fullPage.offsetHeight);
-    var centerEndX = .2*startX + .8*fullW/2;
-    var centerEndY = .2*startY + .8*fullH/2;
+    var centerEndX = 0.2*startX + 0.8*fullW/2;
+    var centerEndY = 0.2*startY + 0.8*fullH/2;
 
 
     var cloudObject = document.createElement('img');
@@ -636,8 +634,8 @@ function showMessage(startX, startY, content) {
             textObject.style.left = Math.floor(centerEndX-fullW/8) + 'px';
             textObject.style.top = Math.floor(centerEndY) + 'px';
             textObject.style.fontSize = '36pt';
-            textObject.style.width = (fullW*.4) + 'px';
-            textObject.style.height = (fullH*.4) + 'px';
+            textObject.style.width = (fullW*0.4) + 'px';
+            textObject.style.height = (fullH*0.4) + 'px';
             textObject.style.zIndex = 6;
             textObject.appendChild( document.createTextNode(content));
             fullPage.appendChild(textObject);
@@ -698,7 +696,7 @@ function appInit() {
     easyrtc.setOnCall( function(easyrtcid, slot) {
         console.log('getConnection count='  + easyrtc.getConnectionCount() );
         boxUsed[slot+1] = true;
-        if(activeBox == 0 ) { // first connection
+        if(activeBox === 0 ) { // first connection
             collapseToThumb();
             document.getElementById('textEntryButton').style.display = 'block';
         }
@@ -715,7 +713,7 @@ function appInit() {
         setTimeout(function() {
             document.getElementById(getIdOfBox(slot+1)).style.visibility = 'hidden';
 
-            if( easyrtc.getConnectionCount() == 0 ) { // no more connections
+            if( easyrtc.getConnectionCount() === 0 ) { // no more connections
                 expandThumb(0);
                 document.getElementById('textEntryButton').style.display = 'none';
                 document.getElementById('textentryBox').style.display = 'none';
