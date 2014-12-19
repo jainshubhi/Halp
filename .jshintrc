@@ -42,7 +42,7 @@
 	],
 	"indent": 4, // Specify indentation spacing
 	"devel": true, // Allow development statements e.g. `console.log();`.
-	"noempty": true, // Prohibit use of empty blocks.
+	"noempty": false, // Prohibit use of empty blocks.
     "asi": true, // true: Tolerate Automatic Semicolon Insertion (no semicolons)
     "lastsemic": true // true: Tolerate omitting a semicolon for the last statement of a 1-line block
 }
