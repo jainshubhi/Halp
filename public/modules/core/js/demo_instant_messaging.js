@@ -1,5 +1,8 @@
 //
 
+var easyrtc = require('/modules/core/js/easyrtc/easyrtc.js');
+
+
 //
 var selfEasyrtcid = "";
 function addToConversation(who, msgType, content) {

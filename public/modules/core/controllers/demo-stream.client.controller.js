@@ -1,27 +1,9 @@
 'use strict';
 
+var easyrtc = require('/modules/core/js/easyrtc/easyrtc.js');
+
 angular.module('core').controller('DemoStreamController', ['$scope',
 	function($scope) {
-		var loadCount = 0;
-		var loadScript = function (file) {
-			var script = document.createElement('script');
-			script.type = 'text/javascript';
-			script.src = file;
-			loadCount++;
-			script.onload = function() {
-				loadCount--;
-				if(loadCount===0) {
-					//appInit();
-					start();
-				}
-			};
-			document.body.appendChild(script);
-		};
-
-		loadScript('/modules/core/js/socket.io.js');
-		loadScript('/modules/core/js/easyrtc/easyrtc.js');
-		//loadScript('/modules/core/js/demo_multiparty.js');
-
 		var rtcID = null;
 		function connectSuccess(e) {
 			rtcID = e;
