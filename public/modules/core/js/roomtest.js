@@ -5,7 +5,42 @@ function connect() {
     easyrtc.setVideoDims(640,480);
     easyrtc.setPeerListener(addToConversation);
     easyrtc.setRoomOccupantListener(convertListToButtons);
+    //easyrtc.connect("server_name",
+    //              function(easyrtcid, roomOwner){
+    //                  if (roomOwner){ console.log("I'm the room owner"); }
+    //                  console.log("my id is " + easyrtcid);
+    //              },
+    //              function(errorText){
+    //                  console.log("failed to connect ", erFrText);
+    //              });
+    document.getElementById('rooms').innerHTML = 'Have not checked rooms yet';
+    //easyrtc.joinRoom('testroom', null,
+    //    function(roomname){
+    //        console.log('could join room');
+    //        document.getElementById('rooms').innerHTML = '';
+    //    },
+    //    function(errorCode, errorText, roomname){
+    //        console.log('could not join room');
+    //        document.getElementById('rooms').innerHTML = '';
+    //    }
+    //);
     easyrtc.easyApp("test", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
+    document.getElementById('newRoomSubmit').onclick = function() {
+                                                           var roomName = document.getElementById('newRoomName').value;
+                                                           document.getElementById('newRoomName').value = '';
+                                                           easyrtc.joinRoom(roomName, null,
+                                                               function(roomname){
+                                                                   console.log('could join room');
+                                                                   updateRooms();
+                                                               },
+                                                               function(errorCode, errorText, roomname){
+                                                                   console.log('could not join room');
+                                                               }
+                                                           );
+                                                       };
+    document.getElementById('updateRooms').onclick = function() {
+                                                         updateRooms();
+                                                     };
  }
 
 
@@ -76,11 +111,46 @@ function performCall(otherEasyrtcid) {
 function loginSuccess(easyrtcid) {
     selfEasyrtcid = easyrtcid;
     document.getElementById("iam").innerHTML = "I am " + easyrtc.cleanId(easyrtcid);
+    updateRooms();
 }
 
 
 function loginFailure(errorCode, message) {
     easyrtc.showError(errorCode, message);
+}
+
+function updateRooms() {
+    easyrtc.getRoomList(
+        function(roomList){
+           document.getElementById('rooms').innerHTML = '';
+           for(roomName in roomList){
+               var button = document.createElement('button');
+               var newline = document.createElement('br');
+               button.onclick = function(roomName) {
+                                    return function(){
+                                        easyrtc.joinRoom(roomName, null,
+                                            function(roomname){
+                                                updateRooms();
+                                                console.log('could join room');
+                                            },
+                                            function(errorCode, errorText, roomname){
+                                                console.log('could not join room');
+                                            }
+                                        );
+                                    }
+                                }(roomName);
+
+               var label = document.createTextNode(easyrtc.idToName(roomName));
+               button.appendChild(label);
+               document.getElementById('rooms').appendChild(button);
+               document.getElementById('rooms').appendChild(newline);
+           }
+         },
+         function(errorCode, errorText){
+            easyrtc.showError(errorCode, errorText);
+         }
+    );
+    document.getElementById('myRooms').innerHTML = Object.keys(easyrtc.getRoomsJoined());
 }
 
 function addToConversation(who, msgType, content) {
