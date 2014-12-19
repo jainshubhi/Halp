@@ -23,39 +23,43 @@ angular.module('core').controller('DemoTransmitController', ['$scope',
 		//loadScript('/modules/core/js/demo_multiparty.js');
 
 		var rtcID = null;
-		function success(e) {
+		function connectSuccess(e) {
 			rtcID = e;
-			console.log('success ' + e);
-		}
+			console.log('Connected to easyRTC Server (' + e + ')');
 
-		function failure(e) {
-			console.log('failure: ' + e);
-		}
-
-		function start() {
-			easyrtc.connect('gavy', success, failure);
-		 	easyrtc.getRoomList(
+			easyrtc.getRoomList(
 				function(roomList) {
-					for(var roomName in roomList){
-						console.log('saw room ' + roomName);
+					var rooms = [];
+					for(var roomName in roomList) {
+						console.log('Found Room: ' + roomName);
+						rooms.push(roomName);
 					}
-					if(roomList.length > 0) {
-						easyrtc.joinRoom(roomList[0], null, success, failure);
-					}
-					for(roomName in roomList){
-						console.log('saw room ' + roomName);
+					if(rooms.length > 0) {
+
+						console.log('Connecting to Room: ' + 'room123');
+						easyrtc.joinRoom('room123', null, roomSuccess, roomFailure);
 					}
 				},
-				function(errorCode, errorText){
+				function(errorCode, errorText) {
 					console.log('ERROR' + errorText);
 				}
 			);
-			/*easyrtc.setOnCall( function(easyrtcid, slot) {
-				console.log("call with " + easyrtcid + "established");
-			});
-			easyrtc.setOnHangup( function(easyrtcid, slot) {
-				console.log("call with " + easyrtcid + "ended");
-			});*/
+		}
+
+		function connectFailure(e) {
+			console.log('Unable to connect to easyRTC Server: ' + e);
+		}
+
+		function roomSuccess(e) {
+			console.log('Connected to Room: ' + e);
+		}
+
+		function roomFailure(e, f) {
+			console.log('Unable to connect to room: ' + JSON.stringify(e) + ' ' + JSON.stringify(f));
+		}
+
+		function start() {
+			easyrtc.connect('gavy', connectSuccess, connectFailure);
 		}
 	}
 ]);

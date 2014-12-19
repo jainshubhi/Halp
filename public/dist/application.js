@@ -55,7 +55,6 @@ angular.module('core').config([
     // Redirect to home view when route not found
     $urlRouterProvider.otherwise('/');
     // Home state routing
-
     $stateProvider.state('demo-stream', {
       url: '/demo-stream',
       templateUrl: 'modules/core/views/demo-stream.client.view.html'
@@ -88,14 +87,44 @@ angular.module('core').controller('DemoTransmitController', [
       script.onload = function () {
         loadCount--;
         if (loadCount === 0) {
-          appInit();
+          //appInit();
+          start();
         }
       };
       document.body.appendChild(script);
     };
     loadScript('/modules/core/js/socket.io.js');
     loadScript('/modules/core/js/easyrtc/easyrtc.js');
-    loadScript('/modules/core/js/demo_multiparty.js');
+    //loadScript('/modules/core/js/demo_multiparty.js');
+    var rtcID = null;
+    function success(e) {
+      rtcID = e;
+      console.log('success ' + e);
+    }
+    function failure(e) {
+      console.log('failure: ' + e);
+    }
+    function start() {
+      easyrtc.connect('gavy', success, failure);
+      easyrtc.getRoomList(function (roomList) {
+        for (var roomName in roomList) {
+          console.log('saw room ' + roomName);
+        }
+        if (roomList.length > 0) {
+          easyrtc.joinRoom(roomList[0], null, success, failure);
+        }
+        for (roomName in roomList) {
+          console.log('saw room ' + roomName);
+        }
+      }, function (errorCode, errorText) {
+        console.log('ERROR' + errorText);
+      });  /*easyrtc.setOnCall( function(easyrtcid, slot) {
+				console.log("call with " + easyrtcid + "established");
+			});
+			easyrtc.setOnHangup( function(easyrtcid, slot) {
+				console.log("call with " + easyrtcid + "ended");
+			});*/
+    }
   }
 ]);'use strict';
 angular.module('core').controller('HeaderController', [
@@ -142,8 +171,6 @@ angular.module('core').controller('StreamTestController', [
     };
     loadScript('/modules/core/js/socket.io.js');
     loadScript('/modules/core/js/easyrtc/easyrtc.js');
-    //loadScript('/modules/core/js/demo_instant_messaging.js');
-    //loadScript('/modules/core/js/demo_audio_video_simple.js');
     loadScript('/modules/core/js/streamtest.js');  // Stream test controller logic
                                                    // ...
   }
@@ -7061,7 +7088,7 @@ angular.module('core').service('Menus', [function () {
     this.defaultRoles = ['*'];
     // Define the menus object
     this.menus = {};
-    // A private function for rendering decision
+    // A private function for rendering decision 
     var shouldRender = function (user) {
       if (user) {
         if (!!~this.roles.indexOf('*')) {
@@ -7212,7 +7239,7 @@ angular.module('users').config([
               $location.path('signin');
               break;
             case 403:
-              // Add unauthorized behaviour
+              // Add unauthorized behaviour 
               break;
             }
             return $q.reject(rejection);
@@ -7340,7 +7367,7 @@ angular.module('users').controller('SettingsController', [
     // If user is not signed in then redirect back home
     if (!$scope.user)
       $location.path('/');
-    // Check if there are additional accounts
+    // Check if there are additional accounts 
     $scope.hasConnectedAdditionalSocialAccounts = function (provider) {
       for (var i in $scope.user.additionalProvidersData) {
         return true;
