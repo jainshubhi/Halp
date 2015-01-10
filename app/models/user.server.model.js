@@ -5,6 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
+	ObjectIdSchema = Schema.ObjectId,
+	ObjectId = mongoose.Types.ObjectId,
 	crypto = require('crypto');
 
 /**
@@ -45,7 +47,7 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		unique: 'testing error', 
+		unique: 'testing error',
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
@@ -75,6 +77,39 @@ var UserSchema = new Schema({
 			enum: ['user', 'admin']
 		}],
 		default: ['user']
+	},
+	social: {
+		subscribers: [{
+			type: ObjectId
+		}],
+		subscriptions: [{
+			type: ObjectId
+		}]
+	},
+	profile: {
+		location: {
+			type: String,
+			default: ''
+		},
+		expertise: {
+			type: String,
+			default: ''
+		},
+		picture: {
+			type: String,
+			default: ''
+		},
+		levels: [{
+			s_points: {
+				type: Number
+			},
+			c_points: {
+				type: Number
+			},
+			r_points: {
+				type: Number
+			}
+		}]
 	},
 	updated: {
 		type: Date
