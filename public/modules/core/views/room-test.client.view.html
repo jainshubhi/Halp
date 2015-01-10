@@ -1,0 +1,42 @@
+<section data-ng-controller="RoomTestController">
+  <div id="roomControls">
+    <br />
+    <strong>Rooms:</strong>
+    <div id="rooms"></div><br>
+    <form>
+      New Room Name:<br>
+      <input type="text" id="newRoomName"><br>
+      <input type="submit" id="newRoomSubmit" value="Submit">
+    </form>
+    <input type="submit" id="updateRooms" value="Update Rooms">
+  </div>
+  <div id="roomInfo">
+    <br />
+    <strong>I am in Rooms:</strong>
+    <div id="myRooms"></div>
+  </div>
+    <div style="margin-top:50px">
+        M
+    </div>
+  <div id="sendMessageArea">
+    <textarea id="sendMessageText"></textarea>
+    <div id="otherClients2"></div>
+  </div>
+  <div id="receiveMessageArea">
+    Received Messages:
+    <div id="conversation"></div>
+  </div>
+    <div id="iam">Not yet connected...</div>
+  <div id="connectControls">
+    <br />
+    <strong>Connected users:</strong>
+    <div id="otherClients"></div>
+  </div>
+  <div id="videos">
+    <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+    <div style="position:relative;float:left;">
+    <video autoplay="autoplay" id="callerVideo"></video>
+    </div>
+    <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
+  </div>
+</section>
