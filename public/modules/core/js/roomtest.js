@@ -150,7 +150,30 @@ function updateRooms() {
             easyrtc.showError(errorCode, errorText);
          }
     );
-    document.getElementById('myRooms').innerHTML = Object.keys(easyrtc.getRoomsJoined());
+    //document.getElementById('myRooms').innerHTML = Object.keys(easyrtc.getRoomsJoined());
+    document.getElementById('myRooms').innerHTML = '';
+    for(roomName in easyrtc.getRoomsJoined()){
+        var button = document.createElement('button');
+        var newline = document.createElement('br');
+        button.onclick = function(roomName) {
+                             return function(){
+                                 easyrtc.leaveRoom(roomName,
+                                     function(roomname){
+                                         updateRooms();
+                                         console.log('could leave room');
+                                     },
+                                     function(errorCode, errorText, roomname){
+                                         console.log('could not leave room');
+                                     }
+                                 );
+                             }
+                         }(roomName);
+
+        var label = document.createTextNode(easyrtc.idToName(roomName));
+        button.appendChild(label);
+        document.getElementById('myRooms').appendChild(button);
+        document.getElementById('myRooms').appendChild(newline);
+    }
 }
 
 function addToConversation(who, msgType, content) {
