@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('core').controller('RoomTestController', ['$scope',
+angular.module('core').controller('RoomSourceController', ['$scope',
     function($scope) {
         var loadCount = 0;
         var loadScript = function (file) {
