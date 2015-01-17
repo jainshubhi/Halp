@@ -19,7 +19,7 @@ angular.module('core').controller('RoomTestController', ['$scope',
 
         loadScript('/modules/core/js/socket.io.js');
         loadScript('/modules/core/js/easyrtc/easyrtc.js');
-        loadScript('/modules/core/js/streamtest.js');
+        loadScript('/modules/core/js/streamsource.js');
 
         // Stream test controller logic
         // ...
