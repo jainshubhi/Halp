@@ -86,18 +86,21 @@ wsServer.on('request', function(request) {
     connection_list.push(connection);
     console.log((new Date()) + ' Connection accepted. (' + numConnection.toString() + ' Connections)');
     connection.on('message', function(message) {
-        if (message.type === 'utf8') {
-            //console.log('Received Message: ' + message.utf8Data);
-            connection.sendUTF(message.utf8Data);
-        }
-        else if (message.type === 'binary') {
-            //console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-            connection.sendBytes(message.binaryData);
-        }
-        else {
-            //console.log('Received Unknown Message of ' + message.binaryData.length + ' bytes');
-            connection.sendBytes(message.binaryData);
-        }
+      var arrayLength = connection_list.length;
+      for (var i = 0; i < arrayLength; i++) {
+          if (message.type === 'utf8') {
+              //console.log('Received Message: ' + message.utf8Data);
+              connection_list[i].sendUTF(message.utf8Data);
+          }
+          else if (message.type === 'binary') {
+              //console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
+              connection_list[i].sendBytes(message.binaryData);
+          }
+          else {
+              //console.log('Received Unknown Message of ' + message.binaryData.length + ' bytes');
+              connection_list[i].sendBytes(message.binaryData);
+          }
+      }
     });
     connection.on('close', function(reasonCode, description) {
         numConnection = numConnection - 1;
