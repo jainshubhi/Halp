@@ -1,4 +1,5 @@
 "use strict";
+console.log('streamsource.js DEBUG');
 var snapshots = [];
 var socket;
     socket = new WebSocket("ws://" + window.location.host, "echo-protocol");
@@ -110,7 +111,7 @@ setTimeout(function(){
   var message = document.getElementById("message");
 
 
-  status.textContent = "Not Connected";
+  //status.textContent = "Not Connected";
   //url.value = "ws://localhost:8080";
   url.value = "ws://" + window.location.host;
   close.disabled = true;
@@ -242,5 +243,5 @@ function draw() {
   // Wait for the next frame.
   setTimeout(function(){
     requestAnimationFrame(draw);
-  }, 20);
+  }, 150);
 }
