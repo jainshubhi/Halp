@@ -1,3 +1,22 @@
-<section data-ng-controller="StreamSourceController">
-	This is the Stream source
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WebSocket Echo Client</title>
+  <meta charset="UTF-8" />
+</head>
+<body>
+  Status: <span id="status"></span><br />
+  URL: <input id="url" /><br />
+  <input id="open" type="button" value="Connect" />&nbsp;
+  <input id="close" type="button" value="Disconnect" /><br />
+  <input id="send" type="button" value="Send" />&nbsp;
+  <input id="text" /><br />
+  <span id="message"></span> <br />
+  Frame # <span id="frames"></span><br />
+  Video:<br />
+  <video id ="video" autoplay></video> <br />
+  Canvas:<br />
+  <canvas id="canvas" width="320" height="240"></canvas> <br />
+  Output: <node id="output"></node><br />
+</body>
+</html>
