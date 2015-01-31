@@ -173,7 +173,15 @@ setTimeout(function(){
         // constraints
         {
            video: true,
-           audio: true
+           audio: true: {
+                "mandatory": {
+                    "googEchoCancellation": "false",
+                    "googAutoGainControl": "false",
+                    "googNoiseSuppression": "false",
+                    "googHighpassFilter": "false"
+                },
+                "optional": []
+           }
         },
   
         // successCallback
@@ -245,3 +253,7 @@ function draw() {
     requestAnimationFrame(draw);
   }, 150);
 }
+
+
+
+
