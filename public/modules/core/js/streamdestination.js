@@ -31,6 +31,34 @@ var socket;
       status.textContent = "Not Connected";
     });
 
+
+var asocket;
+    asocket = new WebSocket("ws://" + window.location.host, "audio-socket");
+    asocket.addEventListener("open", function(event) {
+    });
+
+    // Display messages received from the server
+    asocket.addEventListener("message", function(event) {
+      console.log('asocket.addEventListener - message');
+      var audio = new Audio(URL.createObjectURL(event.data));
+      audio.play();
+
+      //message.textContent = "Server Says: " + event.data;
+    });
+    // Display any errors that occur
+    asocket.addEventListener("error", function(event) {
+      console.log('asocket.addEventListener - error');
+      message.textContent = "Error: " + event;
+    });
+
+    asocket.addEventListener("close", function(event) {
+      console.log('asocket.addEventListener - close');
+      console.log(event);
+      open.disabled = false;
+      status.textContent = "Not Connected";
+    });
+
+
 // Initialize everything when the window finishes loading
 window.addEventListener("load", function(event) {
 //  window.setInterval(function(){alert("TEST")}, 1000);
